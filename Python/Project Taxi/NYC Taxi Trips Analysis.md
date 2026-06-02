@@ -1,18 +1,18 @@
 NYC Taxi Trips Analysis
 
 ## Project Overview
-Analisis dataset NYC Taxi Trips dengan lebih dari 1,4 juta baris data. 
+Analisis dataset NYC Taxi Trips dengan lebih dari 1 juta baris data. 
 Tujuan project ini adalah memahami pola perjalanan, vendor performance, 
 dan distribusi trip berdasarkan waktu, lokasi, serta durasi.
 
 ## Tools & Technologies
 - SQL Server Management Studio (SSMS) → data cleaning & preprocessing
-- Python (Pandas, Seaborn, Matplotlib) → data processing & visualization
+- Python (Pandas, Plotly, Numpy, Streamlit) → data processing & visualization
 - Streamlit → interactive dashboard
 - Power BI → complementary visualization
 
 ## Challenges
-- Dataset besar (1.4M rows) menyebabkan keterbatasan performa di Power BI.
+- Dataset besar (> 1 juta rows) menyebabkan keterbatasan performa di Power BI.
 - Visualisasi peta tidak dapat diproses optimal karena keterbatasan perangkat.
 
 ## Solutions
