@@ -1,7 +1,3 @@
--- ==============================================================================
--- QUERY CLEANING & PROSES GEOSPATIAL LANGSUNG DARI TABEL TAXI_TRIPS
--- Siap digunakan untuk View atau langsung ditarik ke Power BI / Python
--- ==============================================================================
 SELECT 
     id,
     vendor_id,
@@ -14,12 +10,12 @@ SELECT
     passenger_count,
     trip_duration,
 
-    -- 🌟 2. RUMUS PEMBERSIHAN KOORDINAT LONGITUDE (Target: -73.xxxxxx s/d -74.xxxxxx)
+    -- 2. RUMUS PEMBERSIHAN KOORDINAT LONGITUDE (Target: -73.xxxxxx s/d -74.xxxxxx)
     -- Mengonversi ke FLOAT terlebih dahulu agar format scientific aman, lalu digeser desimalnya
     CAST(TRY_CAST(pickup_longitude AS FLOAT) / 100000000000000.0 AS DECIMAL(18, 6)) AS pickup_longitude,
     CAST(TRY_CAST(dropoff_longitude AS FLOAT) / 100000000000000.0 AS DECIMAL(18, 6)) AS dropoff_longitude,
 
-    -- 🌟 3. RUMUS PEMBERSIHAN KOORDINAT LATITUDE (Target: 40.xxxxxx)
+    -- 3. RUMUS PEMBERSIHAN KOORDINAT LATITUDE (Target: 40.xxxxxx)
     CAST(TRY_CAST(pickup_latitude AS FLOAT) / 100000000000000.0 AS DECIMAL(18, 6)) AS pickup_latitude,
     CAST(TRY_CAST(dropoff_latitude AS FLOAT) / 100000000000000.0 AS DECIMAL(18, 6)) AS dropoff_latitude,
     
@@ -28,10 +24,10 @@ SELECT
     -- Membuat metrics bantuan untuk menghitung total perjalanan
     1 AS total_trips 
 
-FROM taxi_trips -- Langsung menembak tabel utama Anda
+FROM taxi_trips
 
 WHERE 
-    -- 🛑 FILTER OUTLIER & DATA SAMPAH
+    -- FILTER OUTLIER & DATA SAMPAH
     -- Hanya mengambil data yang setelah digeser desimalnya masuk ke area geografis New York
     (TRY_CAST(pickup_latitude AS FLOAT) / 100000000000000.0 BETWEEN 40.5 AND 40.9)
     AND 
