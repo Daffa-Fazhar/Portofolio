@@ -20,7 +20,7 @@ st.set_page_config(
 # ─────────────────────────────────────────────────────────────────────────────
 # KONFIGURASI
 # ─────────────────────────────────────────────────────────────────────────────
-CSV_PATH = r"C:\Users\azhar\Documents\Data Analyst\File Portofolio\SQL\Project Taxi\Project Taxi\NYC.csv"
+CSV_PATH = r"__lokasi folder__/data.xlsx"
 
 LAT_MIN, LAT_MAX =  40.50,  40.90
 LON_MIN, LON_MAX = -74.20, -73.70
