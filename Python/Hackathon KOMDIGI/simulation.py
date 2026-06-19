@@ -334,7 +334,7 @@ def run_simulation(input_modal="modal.xlsx", input_rules="informasi-tambahan.xls
 
 if __name__ == '__main__':
     # Path folder tempat file input dan output berada
-    base_dir = r"C:\Users\azhar\Documents\FOLDER FULL PELATIHAN\FOLDER PELATIHAN KOMDIGI\Pelatihan 5 (Hackathon)\SOAL 3\soal-data-hackathon-03"
+    base_dir = r"__lokasi folder__/data.xlsx"
     
     # File input (lengkap dengan path)
     input_modal = os.path.join(base_dir, "modal.xlsx")
