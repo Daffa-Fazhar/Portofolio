@@ -16,7 +16,7 @@ import warnings
 import os
 warnings.filterwarnings("ignore")
 
-# ── PATH OTOMATIS: script akan cari file di folder yang sama dengan script ini
+
 BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
 FILE_EXCEL = os.path.join(BASE_DIR, "data_penjualan.xlsx")
 FILE_OUT   = os.path.join(BASE_DIR, "retail_crisis_recovery_dashboard.png")
