@@ -149,12 +149,12 @@ def st_lightbox_image(image_path: str, img_id: str, caption: str = ""):
 # ==========================================
 css_code = """
 <style>
-    /* PAKSA TEMA GELAP UNTUK TEKS DAN UTAMA */
+    /* 1. PAKSA TEMA GELAP UTAMA */
     html, body, [data-testid="stAppViewContainer"], .stMarkdown, p, h1, h2, h3, h4, span {
         color: #e2e8f0 !important;
     }
 
-    /* PAKSA SIDEBAR TETAP GELAP DI SEMUA HP */
+    /* 2. PAKSA SIDEBAR TETAP GELAP */
     [data-testid="stSidebar"] {
         background-color: #0F1420 !important;
         border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -163,7 +163,35 @@ css_code = """
         color: #e2e8f0 !important;
     }
 
-    /* Background Gambar dengan Overlay Gelap */
+    /* 3. FIX ST.CODE & INLINE CODE (BIAR GAK JADI BOX PUTIH) */
+    code, pre, [data-testid="stCode"], [data-testid="stCodeBlock"], div[data-baseweb="typo-round-meta"] {
+        background-color: #0d1117 !important;
+        color: #38bdf8 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 8px !important;
+    }
+    code *, pre *, [data-testid="stCode"] * {
+        color: #38bdf8 !important;
+        background-color: transparent !important;
+    }
+
+    /* 4. FIX HEADER EXPANDER (BIAR TITLE GAK BACKGROUND PUTIH) */
+    [data-testid="stExpander"] {
+        background-color: rgba(15, 20, 32, 0.85) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    [data-testid="stExpander"] summary, [data-testid="stExpander"] details summary {
+        background-color: #141c2d !important;
+        color: #f1f5f9 !important;
+        border-radius: 8px !important;
+    }
+    [data-testid="stExpander"] summary * {
+        color: #f1f5f9 !important;
+    }
+
+    /* 5. BACKGROUND UTAMA WEB */
     .stApp {
         background: linear-gradient(
             rgba(9, 10, 15, 0.88), 
@@ -177,7 +205,7 @@ css_code = """
         background-attachment: fixed !important;
     }
     
-    /* Hover Cards untuk Bagian Jasa & Tools */
+    /* 6. HOVER CARDS (TABS JASA & TOOLS) */
     .custom-card {
         background-color: rgba(15, 20, 32, 0.85) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -194,7 +222,7 @@ css_code = """
         background-color: rgba(20, 28, 45, 0.95) !important;
     }
     
-    /* Styling Badge Tools */
+    /* 7. BADGE TOOLS */
     .tool-badge {
         display: inline-flex;
         align-items: center;
@@ -214,8 +242,7 @@ css_code = """
         object-fit: contain;
     }
     
-    /* RESET PERIPHERAL STREAMLIT AGAR MELEPAS POSITION FIXED */
-    [data-testid="stExpander"], 
+    /* 8. RESET CONTAINMENT STREAMLIT */
     [data-testid="stExpanderDetails"],
     .stMarkdown,
     .element-container {
@@ -224,14 +251,6 @@ css_code = """
         backdrop-filter: none !important;
         perspective: none !important;
         contain: none !important;
-    }
-    
-    /* Styling Expander Tanpa Backdrop Filter */
-    [data-testid="stExpander"] {
-        background-color: rgba(15, 20, 32, 0.85) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 10px !important;
-        margin-bottom: 10px !important;
     }
 </style>
 """
