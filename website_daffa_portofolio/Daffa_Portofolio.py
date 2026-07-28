@@ -163,7 +163,7 @@ css_code = """
         color: #e2e8f0 !important;
     }
 
-    /* 3. FIX ST.CODE & INLINE CODE (BIAR GAK JADI BOX PUTIH) */
+    /* 3. FIX ST.CODE & INLINE CODE */
     code, pre, [data-testid="stCode"], [data-testid="stCodeBlock"], div[data-baseweb="typo-round-meta"] {
         background-color: #0d1117 !important;
         color: #38bdf8 !important;
@@ -175,7 +175,7 @@ css_code = """
         background-color: transparent !important;
     }
 
-    /* 4. FIX HEADER EXPANDER (BIAR TITLE GAK BACKGROUND PUTIH) */
+    /* 4. FIX HEADER EXPANDER */
     [data-testid="stExpander"] {
         background-color: rgba(15, 20, 32, 0.85) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -191,7 +191,27 @@ css_code = """
         color: #f1f5f9 !important;
     }
 
-    /* 5. BACKGROUND UTAMA WEB */
+    /* 5. FIX TOMBOL ST.LINK_BUTTON (WHATSAPP BUTTON) */
+    [data-testid="stLinkButton"] a, .stLinkButton > a, div[data-testid="stLinkButton"] > a {
+        background-color: #25D366 !important;
+        color: #ffffff !important;
+        border: none !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35) !important;
+        transition: all 0.3s ease !important;
+    }
+    [data-testid="stLinkButton"] a:hover, .stLinkButton > a:hover {
+        background-color: #1ebc57 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5) !important;
+    }
+    [data-testid="stLinkButton"] a * {
+        color: #ffffff !important;
+    }
+
+    /* 6. BACKGROUND UTAMA WEB */
     .stApp {
         background: linear-gradient(
             rgba(9, 10, 15, 0.88), 
@@ -205,7 +225,7 @@ css_code = """
         background-attachment: fixed !important;
     }
     
-    /* 6. HOVER CARDS (TABS JASA & TOOLS) */
+    /* 7. HOVER CARDS (TABS JASA & TOOLS) */
     .custom-card {
         background-color: rgba(15, 20, 32, 0.85) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -222,7 +242,7 @@ css_code = """
         background-color: rgba(20, 28, 45, 0.95) !important;
     }
     
-    /* 7. BADGE TOOLS */
+    /* 8. BADGE TOOLS */
     .tool-badge {
         display: inline-flex;
         align-items: center;
@@ -242,7 +262,7 @@ css_code = """
         object-fit: contain;
     }
     
-    /* 8. RESET CONTAINMENT STREAMLIT */
+    /* 9. RESET CONTAINMENT STREAMLIT */
     [data-testid="stExpanderDetails"],
     .stMarkdown,
     .element-container {
