@@ -1,5 +1,15 @@
+import os
 import streamlit as st
 import base64
+
+# ==========================================
+# 0. KUNCI LOKASI FOLDER DENGAN BASE_DIR
+# ==========================================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def get_image_path(file_name):
+    """Mengembalikan jalur file absolut berbasis lokasi script ini."""
+    return os.path.join(BASE_DIR, file_name)
 
 # ==========================================
 # 1. KONFIGURASI HALAMAN UTAMA
@@ -14,8 +24,9 @@ st.set_page_config(
 # 2. HELPER FUNCTION: BACA BACKGROUND IMAGE
 # ==========================================
 def get_base64_image(image_path):
+    full_path = image_path if os.path.isabs(image_path) else get_image_path(image_path)
     try:
-        with open(image_path, "rb") as img_file:
+        with open(full_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
     except FileNotFoundError:
         return ""
@@ -24,12 +35,13 @@ def get_base64_image(image_path):
 img_base64 = get_base64_image("background.png")
 
 # ==========================================
-# 3. HELPER FUNCTION: LIGHTBOX IMAGE (PERBAIKAN TRUE CENTER)
+# 3. HELPER FUNCTION: LIGHTBOX IMAGE (AUTOMATIC PATH RESOLUTION)
 # ==========================================
 def st_lightbox_image(image_path: str, img_id: str, caption: str = ""):
-    """Merender gambar dengan fitur Pure CSS Lightbox (Pas di Tengah Layar)."""
+    """Merender gambar dengan fitur Pure CSS Lightbox (Aman Path & Pas di Tengah Layar)."""
+    full_path = image_path if os.path.isabs(image_path) else get_image_path(image_path)
     try:
-        with open(image_path, "rb") as img_file:
+        with open(full_path, "rb") as img_file:
             b64_str = base64.b64encode(img_file.read()).decode()
     except FileNotFoundError:
         st.error(f"Waduh Bre, file '{image_path}' tidak ditemukan di folder project!")
@@ -214,18 +226,18 @@ css_code = """
 st.markdown(css_code.replace("GAMBAR_LOKAL_BASE64", img_base64), unsafe_allow_html=True)
 
 if not img_base64:
-    st.error("file 'background.png' gak ketemu di folder project")
+    st.error("Waduh Bre, file 'background.png' gak ketemu di folder project lu!")
 
 # ==========================================
 # 5. SIDEBAR PROFIL
 # ==========================================
 with st.sidebar:
-    st.image("foto_daffa.png") 
+    st.image(get_image_path("foto_daffa.png")) 
     st.title("Daffa Farros Azhari")
     st.subheader("Data Analyst & Automation Specialist")
     st.write("📍 Sidoarjo, Indonesia")
     st.write("Hubungi Saya:")
-    st.markdown("[📩 Email](azharidaffa18@gmail.com) | [💼 LinkedIn](https://linkedin.com/in/daffafarros)")
+    st.markdown("[📩 Email](mailto:azharidaffa18@gmail.com) | [💼 LinkedIn](https://linkedin.com/in/daffafarros)")
     st.markdown("---")
     st.markdown("**Core Skills:**")
     st.code("✓ End to End Data Analytics \n✓ SQL & Query Optimization \n✓ Python for Data Analysis & Automation" \
