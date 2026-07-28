@@ -149,11 +149,25 @@ def st_lightbox_image(image_path: str, img_id: str, caption: str = ""):
 # ==========================================
 css_code = """
 <style>
+    /* PAKSA TEMA GELAP UNTUK TEKS DAN UTAMA */
+    html, body, [data-testid="stAppViewContainer"], .stMarkdown, p, h1, h2, h3, h4, span {
+        color: #e2e8f0 !important;
+    }
+
+    /* PAKSA SIDEBAR TETAP GELAP DI SEMUA HP */
+    [data-testid="stSidebar"] {
+        background-color: #0F1420 !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    [data-testid="stSidebar"] * {
+        color: #e2e8f0 !important;
+    }
+
     /* Background Gambar dengan Overlay Gelap */
     .stApp {
         background: linear-gradient(
-            rgba(9, 10, 15, 0.85), 
-            rgba(9, 10, 15, 0.93)
+            rgba(9, 10, 15, 0.88), 
+            rgba(9, 10, 15, 0.95)
         ), 
         url("data:image/png;base64,GAMBAR_LOKAL_BASE64") !important;
         
@@ -165,8 +179,8 @@ css_code = """
     
     /* Hover Cards untuk Bagian Jasa & Tools */
     .custom-card {
-        background-color: rgba(15, 20, 32, 0.75) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background-color: rgba(15, 20, 32, 0.85) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
         padding: 22px !important;
         border-radius: 12px !important;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
@@ -177,7 +191,7 @@ css_code = """
         transform: translateY(-5px) !important;
         border-color: rgba(0, 150, 255, 0.6) !important;
         box-shadow: 0 12px 40px 0 rgba(0, 150, 255, 0.2) !important;
-        background-color: rgba(20, 28, 45, 0.9) !important;
+        background-color: rgba(20, 28, 45, 0.95) !important;
     }
     
     /* Styling Badge Tools */
@@ -192,7 +206,7 @@ css_code = """
         margin: 5px;
         font-family: monospace;
         font-size: 0.9rem;
-        color: #e2e8f0;
+        color: #e2e8f0 !important;
     }
     .tool-badge img {
         width: 18px;
@@ -214,8 +228,8 @@ css_code = """
     
     /* Styling Expander Tanpa Backdrop Filter */
     [data-testid="stExpander"] {
-        background-color: rgba(15, 20, 32, 0.75) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background-color: rgba(15, 20, 32, 0.85) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 10px !important;
         margin-bottom: 10px !important;
     }
