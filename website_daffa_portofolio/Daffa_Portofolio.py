@@ -214,7 +214,7 @@ css_code = """
 st.markdown(css_code.replace("GAMBAR_LOKAL_BASE64", img_base64), unsafe_allow_html=True)
 
 if not img_base64:
-    st.error("Waduh Bre, file 'background.png' gak ketemu di folder project lu!")
+    st.error("file 'background.png' gak ketemu di folder project")
 
 # ==========================================
 # 5. SIDEBAR PROFIL
@@ -225,7 +225,7 @@ with st.sidebar:
     st.subheader("Data Analyst & Automation Specialist")
     st.write("📍 Sidoarjo, Indonesia")
     st.write("Hubungi Saya:")
-    st.markdown("[📩 Email](mailto:email@lu.com) | [💼 LinkedIn](https://linkedin.com)")
+    st.markdown("[📩 Email](azharidaffa18@gmail.com) | [💼 LinkedIn](https://linkedin.com/in/daffafarros)")
     st.markdown("---")
     st.markdown("**Core Skills:**")
     st.code("✓ End to End Data Analytics \n✓ SQL & Query Optimization \n✓ Python for Data Analysis & Automation" \
@@ -566,5 +566,5 @@ with tab3:
     st.markdown('<div class="animated-section" style="text-align: center; margin-top: 20px;">', unsafe_allow_html=True)
     st.subheader("Siap Mengotomatiskan dan Mengoptimalkan Data Bisnis Anda?")
     st.write("Silakan klik tombol di bawah untuk menjadwalkan sesi konsultasi gratis membahas kebutuhan sistem bisnis Anda.")
-    st.link_button("💬 Hubungi Saya via WhatsApp (Konsultasi Gratis)", "https://wa.me/nomorlu")
+    st.link_button("💬 Hubungi Saya via WhatsApp (Konsultasi Gratis)", "https://wa.me/+6285604054640")
     st.markdown('</div>', unsafe_allow_html=True)
