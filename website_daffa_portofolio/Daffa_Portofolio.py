@@ -289,38 +289,61 @@ header[data-testid="stHeader"],
         right: 1rem !important;
     }
 
-    /* ==========================================
-       2. PERBAIKAN SIDEBAR DI HP (RESPONSIVE)
-       ========================================== */
-    /* Batasi lebar sidebar di HP supaya tidak memenuhi seluruh layar */
-    @media (max-width: 768px) {
-        [data-testid="stSidebar"] {
-            width: 80vw !important;
-            max-width: 290px !important;
-        }
+   [data-testid="stSidebar"] [data-testid="stImage"] {
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 10px !important;
     }
 
-    /* Kecilkan dan paskan proporsi Foto Profil di Sidebar */
-    [data-testid="stSidebar"] img {
-        max-width: 150px !important;
+    [data-testid="stSidebar"] [data-testid="stImage"] img {
+        width: 120px !important;
+        max-width: 120px !important;
         height: auto !important;
         border-radius: 16px !important;
-        margin: 0 auto 10px auto !important;
-        display: block !important;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4) !important;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.5) !important;
     }
 
-    /* Paskan font teks nama & role di sidebar agar ramping */
-    [data-testid="stSidebar"] h1, 
-    [data-testid="stSidebar"] h2, 
-    [data-testid="stSidebar"] h3 {
-        font-size: 1.2rem !important;
-        text-align: center !important;
+    /* ==========================================
+       4. RAPILAN TEKS & SPASI SIDEBAR (LEFT-ALIGN RAPI)
+       ========================================== */
+    /* Container konten sidebar */
+    [data-testid="stSidebarUserContent"] {
+        padding-top: 1rem !important;
+        padding-left: 0.8rem !important;
+        padding-right: 0.8rem !important;
     }
-    
-    [data-testid="stSidebar"] p {
-        font-size: 0.9rem !important;
+
+    /* Judul Nama */
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2 {
+        font-size: 1.15rem !important;
         text-align: center !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Role / Subtitle */
+    [data-testid="stSidebar"] h3 {
+        font-size: 0.85rem !important;
+        text-align: center !important;
+        color: #F2B824 !important;
+        margin-top: 0px !important;
+        margin-bottom: 12px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Teks Biasa & Link Kontak (Rata Kiri Biar Rapi) */
+    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] a,
+    [data-testid="stSidebar"] span {
+        font-size: 0.82rem !important;
+        text-align: left !important;
+        margin-bottom: 4px !important;
+    }
+
+    /* Bikin Link Kontak (Email, LinkedIn, GitHub) Terlihat Sejajar */
+    [data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
+        text-align: left !important;
     }
 </style>
 """
