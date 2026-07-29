@@ -7,7 +7,6 @@ from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment, Font
 
 def auto_adjust_column_width(worksheet, df=None):
-    """Otomatis menyesuaikan lebar kolom agar sesuai dengan isi data"""
     if df is not None:
         for idx, col in enumerate(df.columns, 1):
             max_length = len(str(col))
@@ -34,7 +33,6 @@ def auto_adjust_column_width(worksheet, df=None):
             worksheet.column_dimensions[column_letter].width = adjusted_width
 
 def remove_header_formatting(worksheet):
-    """Menghilangkan formatting bold dan center dari header"""
     for cell in worksheet[1]:
         if cell.value:
             cell.font = Font(bold=False)
@@ -146,7 +144,6 @@ def simulate_person(person_data, rules, total_years):
     harga_sewa = int(person_data['Harga Sewa Kos Per Kamar'])
     threshold_raw = person_data['Threshold Bangun']
     
-    # PENTING: Baca periode mulai dari data masing-masing investor
     periode_mulai = parse_period(person_data['Periode Mulai'])
     
     investment_dates = {
@@ -333,10 +330,8 @@ def run_simulation(input_modal="modal.xlsx", input_rules="informasi-tambahan.xls
     print(f"📁 Lokasi file: {os.path.abspath(output_file)}")
 
 if __name__ == '__main__':
-    # Path folder tempat file input dan output berada
     base_dir = r"__lokasi folder__/data.xlsx"
     
-    # File input (lengkap dengan path)
     input_modal = os.path.join(base_dir, "modal.xlsx")
     input_rules = os.path.join(base_dir, "informasi-tambahan.xlsx")
     
