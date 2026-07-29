@@ -44,7 +44,7 @@ def st_lightbox_image(image_path: str, img_id: str, caption: str = ""):
         with open(full_path, "rb") as img_file:
             b64_str = base64.b64encode(img_file.read()).decode()
     except FileNotFoundError:
-        st.error(f"Waduh Bre, file '{image_path}' tidak ditemukan di folder project!")
+        st.error(f"file '{image_path}' tidak ditemukan di folder project!")
         return
 
     html_code = f"""
@@ -279,7 +279,7 @@ css_code = """
 st.markdown(css_code.replace("GAMBAR_LOKAL_BASE64", img_base64), unsafe_allow_html=True)
 
 if not img_base64:
-    st.error("Waduh Bre, file 'background.png' gak ketemu di folder project lu!")
+    st.error("file 'background.png' gak ketemu di folder project!")
 
 # ==========================================
 # 5. SIDEBAR PROFIL
@@ -291,6 +291,7 @@ with st.sidebar:
     st.write("📍 Sidoarjo, Indonesia")
     st.write("Hubungi Saya:")
     st.markdown("[📩 Email](mailto:azharidaffa18@gmail.com) | [💼 LinkedIn](https://linkedin.com/in/daffafarros)")
+    st.markdown("[🖥️ Github](https://github.com/Daffa-Fazhar/Portofolio)")
     st.markdown("---")
     st.markdown("**Core Skills:**")
     st.code("✓ End to End Data Analytics \n✓ SQL & Query Optimization \n✓ Python for Data Analysis & Automation" \
@@ -360,7 +361,7 @@ with tab2:
     st.write("Klik pada gambar proyek di bawah untuk melihat visualisasi secara penuh (Zoom):")
     
     # ------------------ PROYEK 1: E-COMMERCE BIG DATA ------------------
-    with st.expander("🚀 1. E-Commerce Engine: 110M+ Rows Analysis (Polars + DuckDB + Streamlit + Plotly)"):
+    with st.expander("1. E-Commerce Engine: 110M+ Rows Analysis (Polars + DuckDB + Streamlit + Plotly)"):
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
@@ -372,7 +373,7 @@ with tab2:
             st_lightbox_image("Dashboard_110.png", img_id="dash_110", caption="Dashboard Analisis 110 Juta Data (Klik untuk zoom)")
 
     # ------------------ PROYEK 2: OLIST RETAIL ANALYTICS ------------------
-    with st.expander("⚡ 2. Olist End-to-End Retail Analytics (Polars + SQL + Power BI)"):
+    with st.expander("2. Olist End-to-End Retail Analytics (Polars + SQL + Power BI)"):
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
@@ -384,7 +385,7 @@ with tab2:
             st_lightbox_image("Dashboard_olist.png", img_id="dash_olist", caption="Interactive Power BI Executive Dashboard")
 
     # ------------------ PROYEK 3: INSTACART MARKET BASKET ANALYSIS ------------------
-    with st.expander("🛒 3. Instacart Market Basket Analysis (Polars + DuckDB + Streamlit + Plotly)"):
+    with st.expander("3. Instacart Market Basket Analysis (Polars + DuckDB + Streamlit + Plotly)"):
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
@@ -396,7 +397,7 @@ with tab2:
             st_lightbox_image("Dashboard_market.png", img_id="dash_market", caption="Dashboard BI Instacart - 32.4M Rows Processed")
     
     # ------------------ PROYEK 4: INDONESIA REGIONAL SALES ------------------
-    with st.expander("🗺️ 4. Indonesia Regional Sales & Geographic Heatmap Analytics (Advanced Excel)"):
+    with st.expander("4. Indonesia Regional Sales & Geographic Heatmap Analytics (Advanced Excel)"):
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
@@ -408,7 +409,7 @@ with tab2:
             st_lightbox_image("Dashboard_peta.png", img_id="dash_peta", caption="Indonesia Regional Geographic Sales Dashboard")
 
     # ------------------ PROYEK 5: MEDICAL ANALYTICS ------------------
-    with st.expander("🏥 5. Medical Analytics: Patients & Billing Executive Overview (Power BI + Excel)"):
+    with st.expander("5. Medical Analytics: Patients & Billing Executive Overview (Power BI + Excel)"):
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
@@ -420,7 +421,7 @@ with tab2:
             st_lightbox_image("Dashboard_kesehatan.png", img_id="dash_kes", caption="Medical Analytics & Billing Overview Dashboard")
     
     # ------------------ PROYEK 6: SALES MONITORING ------------------
-    with st.expander("📊 6. Commercial Sales Target vs Achievement & Operational Slicer System (Advanced Excel + VBA)"):
+    with st.expander("6. Commercial Sales Target vs Achievement & Operational Slicer System (Advanced Excel + VBA)"):
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
@@ -432,7 +433,7 @@ with tab2:
             st_lightbox_image("Dashboard_monitoring.png", img_id="dash_mon", caption="Sales Monitoring Combination System (Target vs Achievement)")
     
     # ------------------ PROYEK 7: SPOTIFY ------------------
-    with st.expander("🎧 7. Spotify Music Behavioral Analytics (Multi-Page Power BI & SSMS)", expanded=True):
+    with st.expander("7. Spotify Music Behavioral Analytics (Multi-Page Power BI & SSMS)", expanded=True):
         col1, col2 = st.columns([1, 1.2])
         with col1:
             st.markdown("""
@@ -456,7 +457,7 @@ with tab2:
                 st_lightbox_image("Spotify3.png", img_id="sp_3", caption="Page 3 - Detail Performa Artis (DAX Table)")
 
     # ------------------ PROYEK 8: BANK LOAN ------------------
-    with st.expander("🏦 8. Financial Risk & Bank Loan Portfolio Analytics (Multi-Page Power BI)"):
+    with st.expander("8. Financial Risk & Bank Loan Portfolio Analytics (Multi-Page Power BI)"):
         col1, col2 = st.columns([1, 1.2])
         with col1:
             st.markdown("""
