@@ -272,6 +272,56 @@ css_code = """
         perspective: none !important;
         contain: none !important;
     }
+header[data-testid="stHeader"], 
+    .stAppHeader {
+        background-color: transparent !important;
+        color: #FFFFFF !important;
+    }
+    
+    /* Warna tombol/icon di header (menu, github, dll) jadi warna emas/terang */
+    header[data-testid="stHeader"] *, 
+    [data-testid="stToolbar"] * {
+        color: #F2B824 !important;
+    }
+    
+    /* Rapikan posisi toolbar di pojok kanan atas */
+    [data-testid="stToolbar"] {
+        right: 1rem !important;
+    }
+
+    /* ==========================================
+       2. PERBAIKAN SIDEBAR DI HP (RESPONSIVE)
+       ========================================== */
+    /* Batasi lebar sidebar di HP supaya tidak memenuhi seluruh layar */
+    @media (max-width: 768px) {
+        [data-testid="stSidebar"] {
+            width: 80vw !important;
+            max-width: 290px !important;
+        }
+    }
+
+    /* Kecilkan dan paskan proporsi Foto Profil di Sidebar */
+    [data-testid="stSidebar"] img {
+        max-width: 150px !important;
+        height: auto !important;
+        border-radius: 16px !important;
+        margin: 0 auto 10px auto !important;
+        display: block !important;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    /* Paskan font teks nama & role di sidebar agar ramping */
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
+        font-size: 1.2rem !important;
+        text-align: center !important;
+    }
+    
+    [data-testid="stSidebar"] p {
+        font-size: 0.9rem !important;
+        text-align: center !important;
+    }
 </style>
 """
 
