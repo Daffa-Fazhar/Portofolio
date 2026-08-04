@@ -363,11 +363,11 @@ m1, m2, m3, m4 = st.columns(4)
 with m1:
     st.markdown('<div class="stat-box"><div class="stat-number">30+</div><div class="stat-label">Total Data Projects</div></div>', unsafe_allow_html=True)
 with m2:
-    st.markdown('<div class="stat-box"><div class="stat-number">8</div><div class="stat-label">Enterprise Cases (0 Complaint)</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="stat-box"><div class="stat-number">9</div><div class="stat-label">Enterprise Cases (0 Complaint)</div></div>', unsafe_allow_html=True)
 with m3:
     st.markdown('<div class="stat-box"><div class="stat-number">110M+</div><div class="stat-label">Rows Data Handled</div></div>', unsafe_allow_html=True)
 with m4:
-    st.markdown('<div class="stat-box"><div class="stat-number">95%</div><div class="stat-label">Time Saved via Automation</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="stat-box"><div class="stat-number">90%</div><div class="stat-label">Time Saved via Automation</div></div>', unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
