@@ -452,7 +452,7 @@ with tab2:
 ):
   # Tab Switcher untuk memisahkan Tampilan Bisnis dan Tampilan Arsitektur Teknis
       tab_overview, tab_architecture = st.tabs(
-      ["📊 Executive Summary & Insights", "⚙️ Data Architecture & Pipeline"]
+      ["⚙️ Data Architecture & Pipeline", "📊 Executive Summary & Insights"]
   )
 
   # ==========================================
@@ -463,7 +463,7 @@ with tab2:
 
     with col1:
       st.markdown("""
-            ### 🏗️ Engineering Architecture & ETL Breakdown
+            ### Engineering Architecture & ETL Breakdown
             
             **1. Tech Stack & Processing Engine**  
             * **Core Engine:** Python & `polars` (`pl.scan_csv` Lazy Frame Engine)  
@@ -495,7 +495,7 @@ with tab2:
 
     with col_arch1:
       st.markdown("""
-            ### 🎯 Business Overview & Strategic Impact
+            ### Business Overview & Strategic Impact
             
             **1. Business Background**  
             Olist mengintegrasikan ribuan *SMBs* ke jaringan e-commerce terbesar di Brazil dengan volume pemrosesan melampaui **100,000+ transaksi** (**R$ 466M+ Total Sales**). Kompleksitas data bersumber dari 8 file CSV relasional terpisah serta risiko *row explosion* akibat duplikasi titik koordinat wilayah.
@@ -536,11 +536,11 @@ with tab2:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            ### ⚙️ Data Architecture & Processing Pipeline
+            ### Data Architecture & Processing Pipeline
             
             Menggabungkan **DuckDB** untuk operasi SQL *JOIN* multi-tabel skala besar dan **Polars** untuk pemrosesan *DataFrame* berkecepatan tinggi dengan total **32.434.489 records**.
 
-            #### 🔄 5-Stage Data Pipeline Flow:
+            #### 5-Stage Data Pipeline Flow:
             1. **Data Sources (CSV Layer):** Membaca 5 file CSV mentah (`orders`, `order_products__prior`, `products`, `departments`, `aisles`) secara langsung tanpa ETL.
             2. **Relations & JOIN Engine (DuckDB):** Melakukan `INNER JOIN` *in-memory* antara Fact Table (`order_products__prior`) dan Dimension Tables berbasis *Foreign Key*.
             3. **Dynamic Filter Layer:** Filter dinamis via *sidebar* Streamlit (Hari transaksi, Departemen, Jam operasional, *Min Basket Size*, dan *Customer Type*).
@@ -552,7 +552,7 @@ with tab2:
             
         st.markdown("---")
         st.markdown("""
-        #### 🛠️ Tech Stack & Key Technical Features
+        #### Tech Stack & Key Technical Features
         * **Engine:** DuckDB (In-Memory OLAP Query Engine) + Polars DataFrames.
         * **Frontend & Viz:** Streamlit + Plotly Express & Graph Objects.
         * **Zero-ETL Overhead:** Membaca file CSV jumbo secara langsung tanpa butuh *ingestion* database SQL eksternal.
@@ -566,7 +566,7 @@ with tab2:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            ### 🛒 Enterprise Supply Chain & Demand Analytics
+            ### Enterprise Supply Chain & Demand Analytics
 
             #### Business Background
             Instacart mengelola jutaan pesanan belanja bahan pokok secara *online*. Untuk menjaga kepuasan pelanggan dan efisiensi rantai pasok (*supply chain*), tim operasional membutuhkan pemantauan *real-time* atas **32,4+ juta transaksi** guna mengoptimalkan alokasi tenaga kerja gudang, manajemen inventaris, serta strategi retensi pelanggan.
@@ -617,11 +617,11 @@ with tab2:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            ### ⚙️ Excel Data Pipeline & Processing Architecture
+            ### Excel Data Pipeline & Processing Architecture
             
             Sistem analitik ini mengadopsi arsitektur **4-Layer Relational Staging** di Microsoft Excel untuk mengolah **50.000 transaksi *sales*** secara *real-time* dan interaktif.
 
-            #### 🔄 4-Layer Processing Pipeline:
+            #### Layer Processing Pipeline:
             1. **Raw Data Layer (`DATABASE` Sheet):** Penyimpanan terpusat *50.000 records* transaksi mentah yang mencakup variabel *Region, Province, Item Type, Sales Channel, Order Priority, Order Date, Units Sold, Revenue, Cost,* dan *Profit*.
             2. **Pivot Tables & Agregasi Layer:** Lapisan *staging* yang memproses agregasi data ke dalam 5 Pivot Table khusus:
                * `REKAP_PROVINSI`: Agregasi volume penjualan per wilayah untuk *Geospatial Map*.
@@ -636,7 +636,7 @@ with tab2:
             
         st.markdown("---")
         st.markdown("""
-        #### 🛠️ Tech Stack & Key Technical Features
+        #### Tech Stack & Key Technical Features
         * **Processing Engine:** Microsoft Excel Advanced Pivot Engine & Formulas (`SUMIFS`, `VLOOKUP`, `INDEX/MATCH`).
         * **Filter Mechanism:** Excel Slicers dengan multi-pivot *Report Connections* untuk integrasi filter simultan.
         * **Geospatial Mapping:** Engine Bing OpenStreetMap terintegrasi untuk pemetaan *heatmap* sebaran unit terjual antar provinsi di Indonesia.
@@ -649,7 +649,7 @@ with tab2:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            ### 🛒 Indonesia Regional Geographic Sales Analysis
+            ### Indonesia Regional Geographic Sales Analysis
 
             #### Business Background
             Perusahaan menjalankan distribusi multi-produk secara nasional di Indonesia melalui saluran *Omnichannel* (**Online** dan **Offline**). Dengan tingginya volume transaksi nasional, manajemen puncak memerlukan visibilitas cepat atas daerah pasar utama (*high-demand regions*), efektivitas kanal distribusi, serta dampak tingkat prioritas pesanan terhadap margin profitabilitas perusahaan.
