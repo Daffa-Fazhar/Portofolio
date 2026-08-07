@@ -447,40 +447,247 @@ with tab2:
             st_lightbox_image("Dashboard_110.png", img_id="dash_110", caption="Dashboard Analisis 110 Juta Data")
 
     # ------------------ PROYEK 2: OLIST RETAIL ANALYTICS ------------------
-    with st.expander("2. Olist End-to-End Retail Analytics (Polars + SQL + Power BI)"):
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            st.markdown("""
-            **Tantangan:** Mengintegrasikan 9 tabel transaksi ritel masif yang berantakan dengan risiko duplikasi data pada pemetaan wilayah koordinat.  
-            **Solusi:** Membangun pipa ETL di Python dengan optimasi query SQL, kemudian menyajikannya ke dalam dasbor Power BI yang interaktif.  
-            **Hasil:** Dasbor finansial multi-page untuk memantau performa penjualan produk dan analisis kepuasan pelanggan secara dinamis.
+    with st.expander(
+    "2. Olist Enterprise Analytics Platform (Polars High-Performance ETL & Spatial Modeling)"
+):
+  # Tab Switcher untuk memisahkan Tampilan Bisnis dan Tampilan Arsitektur Teknis
+      tab_overview, tab_architecture = st.tabs(
+      ["📊 Executive Summary & Insights", "⚙️ Data Architecture & Pipeline"]
+  )
+
+  # ==========================================
+  # TAB 1: EXECUTIVE SUMMARY & BUSINESS INSIGHTS
+  # ==========================================
+    with tab_overview:
+     col1, col2 = st.columns([1.1, 0.9])
+
+    with col1:
+      st.markdown("""
+            ### 🏗️ Engineering Architecture & ETL Breakdown
+            
+            **1. Tech Stack & Processing Engine**  
+            * **Core Engine:** Python & `polars` (`pl.scan_csv` Lazy Frame Engine)  
+            * **Data Modeling:** Star Schema Dimensional Modeling (Fact & Dimension Tables)  
+            * **Presentation Layer:** Power BI  
+
+            **2. Multi-Table Transformation & Joins Logic**  
+            * **Lazy Out-of-Core Processing:** Memuat 8 CSV relasional via `pl.scan_csv()` untuk membangun *query execution plan* yang efisien tanpa membebani RAM.
+            * **Spatial Aggregation (Anti Row-Explosion):** Mengagregasikan `olist_geolocation_dataset` pada tingkat `zip_code_prefix` (`mean` lat/lng). Langkah ini krusial mencegah duplikasi baris transaksi (*Cartesian Explosion*).
+            * **Relational Multi-Join:** Merangkai tabel pesanan, item, pembayaran, produk, penerjemah bahasa kategori, dan data pelanggan berbasis *Foreign Key* (`order_id`, `product_id`, `customer_id`).
+
+            **3. Clean Master Output Datasets**  
+            * **`tabel_sales_master.csv`:** Fact Table transaksi detail lengkap dengan status pesanan, harga, ongkir, metode pembayaran, dan kategori terjemahan.  
+            * **`tabel_geo_master.csv`:** Dimension Table spasial terpadu gabungan lokasi *Customer* dan *Seller* (`pl.concat`).
             """)
-        with col2:
-            st_lightbox_image("Dashboard_olist.png", img_id="dash_olist", caption="Interactive Power BI Executive Dashboard")
+
+    with col2:
+      st_lightbox_image(
+          "skema_olist.jpeg",
+          img_id="skema_olist",
+          caption="End-to-End Enterprise Data Architecture UI",
+      )
+
+  # ==========================================
+  # TAB 2: DATA ARCHITECTURE & PIPELINE DETAILS
+  # ==========================================
+    with tab_architecture:
+     col_arch1, col_arch2 = st.columns([1.1, 0.9])
+
+    with col_arch1:
+      st.markdown("""
+            ### 🎯 Business Overview & Strategic Impact
+            
+            **1. Business Background**  
+            Olist mengintegrasikan ribuan *SMBs* ke jaringan e-commerce terbesar di Brazil dengan volume pemrosesan melampaui **100,000+ transaksi** (**R$ 466M+ Total Sales**). Kompleksitas data bersumber dari 8 file CSV relasional terpisah serta risiko *row explosion* akibat duplikasi titik koordinat wilayah.
+
+            **2. Key Business Questions**  
+            * Bagaimanakah dinamika tren transaksi bulanan dan dominasi preferensi pembayaran konsumen?  
+            * Kategori produk mana yang menjadi *revenue driver* utama dan bagaimana struktur pesanan bernilai tinggi (*Top Orders*)?  
+            * Bagaimana pemetaan geospasial *Customer vs Seller* untuk mengidentifikasi *bottleneck* distribusi logistik?
+
+            **3. Key Insights**  
+            * **Revenue & Payment Dominance:** Mengakumulasi total GMV **R$ 466.3M** dari **98,666 transaksi**, di mana *Credit Card* menjadi pilihan utama pembayaran (**76.49%**), disusul *Boleto* (**16.89%**).
+            * **Category Drivers:** Kategori *Health & Beauty* (**R\$ 51M**) dan *Computers Accessories* (**R\$ 36M**) mendominasi proporsi omzet penjualan.
+            * **Spatial Logistics Disparity:** Terjadi ketimpangan logistik di mana pesanan lintas negara bagian (*inter-state*) mengalami durasi pengiriman hingga 3x lebih lama dibanding area terpusat (*intra-state*).
+
+            **4. Business Recommendations**  
+            * **Regional Fulfillment Clustering:** Membangun *fulfillment hub* di wilayah berdensitas tinggi berdasarkan pemetaan `tabel_geo_master` guna menekan ongkos kirim (*freight value*).
+            * **Payment Incentivization:** Menerapkan promosi pendorong untuk transaksi metode *Boleto* demi mempercepat siklus pencairan modal kerja.
+            """)
+
+    with col_arch2:
+      st_lightbox_image(
+          "Dashboard_olist.png",  # Pastikan file gambar dari Emergent.sh disimpan dengan nama ini
+          img_id="arch_olist",
+          caption="Interactive Power BI Executive Dashboard (R$ 466M GMV)",
+      )
 
     # ------------------ PROYEK 3: INSTACART MARKET BASKET ANALYSIS ------------------
     with st.expander("3. Instacart Market Basket Analysis (Polars + DuckDB + Streamlit + Plotly)"):
+     tab1, tab2 = st.tabs([
+        "🏗️ Data Architecture & Pipeline Details", 
+        "📊 Executive Summary & Business Insights"
+    ])
+    
+    # =========================================================================
+    # TAB 1: DATA ARCHITECTURE & PIPELINE DETAILS (PIPELINE FIRST)
+    # =========================================================================
+    with tab1:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            **Tantangan:** Menganalisis perilaku belanja (*Market Basket Analysis*) dari dataset masif berisi lebih dari 32,4 juta baris transaksi tanpa mengalami *lag* atau *loading* yang lama.  
-            **Solusi:** Membangun *data pipeline* berkinerja tinggi menggunakan **DuckDB** (OLAP engine) dan **Polars** yang diintegrasikan ke dalam Python Streamlit untuk *querying* super cepat.  
-            **Hasil:** Dashboard operasional berlatensi rendah (*sub-second response*) dengan tema hijau elegan, menampilkan *Peak Operating Hours*, *Retention Rate*, dan *Loyalty Breakdown* secara *real-time*.
+            ### ⚙️ Data Architecture & Processing Pipeline
+            
+            Menggabungkan **DuckDB** untuk operasi SQL *JOIN* multi-tabel skala besar dan **Polars** untuk pemrosesan *DataFrame* berkecepatan tinggi dengan total **32.434.489 records**.
+
+            #### 🔄 5-Stage Data Pipeline Flow:
+            1. **Data Sources (CSV Layer):** Membaca 5 file CSV mentah (`orders`, `order_products__prior`, `products`, `departments`, `aisles`) secara langsung tanpa ETL.
+            2. **Relations & JOIN Engine (DuckDB):** Melakukan `INNER JOIN` *in-memory* antara Fact Table (`order_products__prior`) dan Dimension Tables berbasis *Foreign Key*.
+            3. **Dynamic Filter Layer:** Filter dinamis via *sidebar* Streamlit (Hari transaksi, Departemen, Jam operasional, *Min Basket Size*, dan *Customer Type*).
+            4. **Aggregation Pipeline (Polars):** Mengubah hasil query DuckDB menjadi Polars DataFrame (`.pl()`) untuk agregasi matriks (*heatmap*, *dept ranking*, *retention decay*, *loyalty breakdown*).
+            5. **Frontend Layer (Streamlit + Plotly):** Menyajikan KPI Cards, visualisasi Plotly interaktif, dan *Live Operational Feed*.
+            """)
+        with col2:
+            st_lightbox_image("skema_insacart.jpeg", img_id="pipe_market", caption="Data Pipeline Architecture - Instacart (32.4M Rows)")
+            
+        st.markdown("---")
+        st.markdown("""
+        #### 🛠️ Tech Stack & Key Technical Features
+        * **Engine:** DuckDB (In-Memory OLAP Query Engine) + Polars DataFrames.
+        * **Frontend & Viz:** Streamlit + Plotly Express & Graph Objects.
+        * **Zero-ETL Overhead:** Membaca file CSV jumbo secara langsung tanpa butuh *ingestion* database SQL eksternal.
+        * **Memory Caching:** Penerapan `@st.cache_data` pada fungsi query SQL agar kalkulasi agregasi berat tidak dihitung ulang saat filter berubah.
+        """)
+
+    # =========================================================================
+    # TAB 2: EXECUTIVE SUMMARY & BUSINESS INSIGHTS (DASHBOARD SECOND)
+    # =========================================================================
+    with tab2:
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.markdown("""
+            ### 🛒 Enterprise Supply Chain & Demand Analytics
+
+            #### Business Background
+            Instacart mengelola jutaan pesanan belanja bahan pokok secara *online*. Untuk menjaga kepuasan pelanggan dan efisiensi rantai pasok (*supply chain*), tim operasional membutuhkan pemantauan *real-time* atas **32,4+ juta transaksi** guna mengoptimalkan alokasi tenaga kerja gudang, manajemen inventaris, serta strategi retensi pelanggan.
+            
+            #### Key Business Questions
+            1. **Warehouse Operations:** Kapan periode waktu puncak (*peak hours*) transaksi terjadi untuk penyesuaian *shift* staf gudang?
+            2. **Category Management:** Kategori produk mana yang mendominasi volume penjualan toko?
+            3. **Consumer Behavior:** Bagaimana urutan penambahan barang ke keranjang (*add-to-cart order*) memengaruhi probabilitas pembelian ulang (*reorder rate*)?
+            4. **Product Loyalty:** Produk mana yang paling didorong oleh pelanggan setia (*repeat customers*) dibanding pembeli baru?
             """)
         with col2:
             st_lightbox_image("Dashboard_market.png", img_id="dash_market", caption="Dashboard BI Instacart - 32.4M Rows Processed")
+            
+        st.markdown("---")
+        
+        # Section Insights & Recommendations Split
+        col_ins, col_rec = st.columns(2)
+        
+        with col_ins:
+            st.markdown("""
+            #### Key Insights
+            * **Peak Operational Demand:** Volume transaksi tertinggi terjadi pada **Minggu & Senin pukul 10:00 - 15:00**.
+            * **High-Volume Drivers:** Departemen **Produce** dan **Dairy Eggs** menyumbang lebih dari **50% total volume penjualan**.
+            * **Add-to-Cart Sequence Decay:** Barang yang dimasukkan ke keranjang pada **posisi 1–3** memiliki *reorder rate* hingga **68%** (posisi menentukan prioritas belanjaan pokok).
+            * **Staple Product Loyalty:** Produk *Banana* dan *Bag of Organic Bananas* didominasi secara signifikan oleh *repeat orders*.
+            """)
+            
+        with col_rec:
+            st.markdown("""
+            #### Business Recommendations
+            * **Dynamic Staffing Schedule:** Alokasikan lebih banyak staf *picker/packer* dan kurir armada pada *window* waktu Minggu–Senin jam 10:00–15:00 untuk mencegah *bottleneck*.
+            * **Cold-Chain & Inventory Priority:** Prioritaskan *stock replenishment* dan pengawasan ruang simpan dingin (*cold storage*) untuk kategori Produce & Dairy Eggs.
+            * **UX & Reorder Prompts:** Tampilkan rekomendasi produk atau *frequently bought items* langsung di posisi teratas aplikasi (*top 3 slots*) saat pengguna membuka keranjang.
+            * **Subscription & Auto-Replenish:** Buat fitur *Auto-Ship/Subscription* khusus untuk barang *staples* (seperti Pisang & Susu) untuk mengunci loyalitas pelanggan.
+            """)
     
     # ------------------ PROYEK 4: INDONESIA REGIONAL SALES ------------------
     with st.expander("4. Indonesia Regional Sales & Geographic Heatmap Analytics (Advanced Excel)"):
+     tab1, tab2 = st.tabs([
+        "🏗️ Data Architecture & Pipeline Details", 
+        "📊 Executive Summary & Business Insights"
+    ])
+    
+    # =========================================================================
+    # TAB 1: DATA ARCHITECTURE & PIPELINE DETAILS (FOCUS ON DATA PROCESSING)
+    # =========================================================================
+    with tab1:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            **Tantangan:** Menyajikan pemetaan sebaran penjualan produk secara nasional secara intuitif, sehingga manajemen puncak dapat dengan cepat memahami distribusi geografis dan profitabilitas tiap wilayah untuk pengambilan keputusan strategis.  
-            **Solusi:** Mengembangkan dashboard *Dark Theme* interaktif di Excel dengan integrasi *Geospatial Map*, kalkulasi profitabilitas (*Order Priority High/Medium/Low*), serta *multi-slicer* berbasis tahun, bulan, dan tipe barang.  
-            **Hasil:** Visualisasi distribusi pendapatan antar provinsi (seperti NTB, Riau, Kalbar) yang memudahkan analisis pasar secara regional.
+            ### ⚙️ Excel Data Pipeline & Processing Architecture
+            
+            Sistem analitik ini mengadopsi arsitektur **4-Layer Relational Staging** di Microsoft Excel untuk mengolah **50.000 transaksi *sales*** secara *real-time* dan interaktif.
+
+            #### 🔄 4-Layer Processing Pipeline:
+            1. **Raw Data Layer (`DATABASE` Sheet):** Penyimpanan terpusat *50.000 records* transaksi mentah yang mencakup variabel *Region, Province, Item Type, Sales Channel, Order Priority, Order Date, Units Sold, Revenue, Cost,* dan *Profit*.
+            2. **Pivot Tables & Agregasi Layer:** Lapisan *staging* yang memproses agregasi data ke dalam 5 Pivot Table khusus:
+               * `REKAP_PROVINSI`: Agregasi volume penjualan per wilayah untuk *Geospatial Map*.
+               * `TOP_PENJULAN`: Breakdown keuangan provinsi dengan performa tertinggi (NTB).
+               * `CHANNEL`: Agregasi rasio transaksi kanal *Online* vs *Offline*.
+               * `DAY`: Agregasi tren volume penjualan harian (tanggal 1–31).
+               * `ORDER`: Agregasi profitabilitas berdasarkan *Order Priority* (High, Medium, Low).
+            3. **Dynamic Filter Layer (Slicers):** Slicer interaktif (Tahun 2010–2017, Bulan, Hari, dan Tipe Barang) yang terhubung secara terpusat (*Report Connections*) ke seluruh Pivot Table.
             """)
         with col2:
-            st_lightbox_image("Dashboard_peta.png", img_id="dash_peta", caption="Indonesia Regional Geographic Sales Dashboard")
+            st_lightbox_image("skema_peta.jpeg", img_id="pipe_excel", caption="Indonesia Sales Analytics - Data Pipeline Architecture")
+            
+        st.markdown("---")
+        st.markdown("""
+        #### 🛠️ Tech Stack & Key Technical Features
+        * **Processing Engine:** Microsoft Excel Advanced Pivot Engine & Formulas (`SUMIFS`, `VLOOKUP`, `INDEX/MATCH`).
+        * **Filter Mechanism:** Excel Slicers dengan multi-pivot *Report Connections* untuk integrasi filter simultan.
+        * **Geospatial Mapping:** Engine Bing OpenStreetMap terintegrasi untuk pemetaan *heatmap* sebaran unit terjual antar provinsi di Indonesia.
+        """)
+
+    # =========================================================================
+    # TAB 2: EXECUTIVE SUMMARY & BUSINESS INSIGHTS
+    # =========================================================================
+    with tab2:
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.markdown("""
+            ### 🛒 Indonesia Regional Geographic Sales Analysis
+
+            #### Business Background
+            Perusahaan menjalankan distribusi multi-produk secara nasional di Indonesia melalui saluran *Omnichannel* (**Online** dan **Offline**). Dengan tingginya volume transaksi nasional, manajemen puncak memerlukan visibilitas cepat atas daerah pasar utama (*high-demand regions*), efektivitas kanal distribusi, serta dampak tingkat prioritas pesanan terhadap margin profitabilitas perusahaan.
+            
+            #### Key Business Questions
+            1. **Geographic Performance:** Provinsi mana yang menjadi penyumbang penjualan terbesar dan bagaimana struktur kontribusi finansialnya?
+            2. **Channel Effectiveness:** Bagaimana keseimbangan performa transaksi antara saluran *Online* vs *Offline*?
+            3. **Order Priority Profitability:** Seberapa besar kontribusi profit dari masing-masing kategori *Order Priority* (High, Medium, Low)?
+            4. **Daily Sales Dynamics:** Bagaimana tren distribusi volume penjualan harian sepanjang bulan?
+            """)
+        with col2:
+            st_lightbox_image("Dashboard_peta.png", img_id="dash_peta", caption="Indonesia Regional Geographic Sales Dashboard - Excel Dark Theme")
+            
+        st.markdown("---")
+        
+        # Section Insights & Recommendations Split
+        col_ins, col_rec = st.columns(2)
+        
+        with col_ins:
+            st.markdown("""
+            #### Key Insights
+            * **Top Performing Region (NTB):** Nusa Tenggara Barat menjadi provinsi dengan penjualan tertinggi, mencatatkan **154.521 unit** terjual dengan **Total Revenue Rp 6,75 Milyar** dan **Total Profit Rp 2,68 Milyar**.
+            * **Omnichannel Equilibrium:** Volume penjualan sangat seimbang antara kanal **Online (51%)** dan **Offline (49%)**, menunjukkan penetrasi pasar digital yang kuat berimbang dengan jaringan fisik.
+            * **Order Priority Profit Contribution:**
+              * **High Priority:** Menyumbang margin profit terbesar (**36%** / **Rp 15,43 Milyar**) dari 887.937 unit.
+              * **Medium Priority:** Menyumbang **30%** profit (**Rp 13,10 Milyar**) dari 753.913 unit.
+              * **Low Priority:** Menyumbang **34%** profit (**Rp 14,89 Milyar**) dari 856.439 unit.
+            * **Total Volume:** Total volume unit terjual nasional pada periode terfilter mencapai **2.498.289 unit**.
+            """)
+            
+        with col_rec:
+            st.markdown("""
+            #### Business Recommendations
+            * **Logistics Hub Expansion (NTB Focus):** Perluas jaringan fasilitas *fulfillment/warehouse* di Nusa Tenggara Barat (NTB) untuk menekan *Total Cost* yang saat ini mencapai Rp 4,06 Milyar.
+            * **Balanced Marketing Allocation:** Jaga rasio anggaran pemasaran 50:50 antara *Digital Ads* (Online) dan *Trade Marketing* (Offline) karena margin kontribusi kedua kanal relatif seimbang.
+            * **High Priority SLA Incentive:** Dorong pemesanan kategori *High Priority* melalui layanan ekspedisi *sameday/express delivery*, mengingat segmen ini terbukti menghasilkan profitabilitas terbesar (Rp 15,43 Milyar).
+            * **Mid-Month Flash Sales:** Manfaatkan lonjakan transaksi harian pada pertengahan bulan (tanggal 9–15) untuk menggelar program promosi spesifik pada saluran Online.
+            """)
 
     # ------------------ PROYEK 5: MEDICAL ANALYTICS ------------------
     with st.expander("5. Medical Analytics: Patients & Billing Executive Overview (Power BI + Excel)"):
