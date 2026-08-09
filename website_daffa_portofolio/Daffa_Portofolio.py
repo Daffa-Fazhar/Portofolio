@@ -691,114 +691,109 @@ with tab2:
 
     # ------------------ PROYEK 5: MEDICAL ANALYTICS ------------------
     with st.expander("5. Medical Analytics: Patients & Billing Executive Overview (Power BI + Excel)", expanded=True):
-    
-    # Membagi tampilan menjadi 2 Tab Utama
-    tab_workflow, tab_dashboard = st.tabs([
-        "🔄 Tab 1: Workflow & Data Pipeline", 
-        "📊 Tab 2: Executive Dashboard & Insights"
-    ])
+        # Membagi tampilan menjadi 2 Tab Utama
+        tab_workflow, tab_dashboard = st.tabs([
+            "🔄 Tab 1: Workflow & Data Pipeline", 
+            "📊 Tab 2: Executive Dashboard & Insights"
+        ])
 
-    # ==========================================
-    # TAB 1: PENJELASAN BAGAN & WORKFLOW ETL / DAX (DENGAN GAMBAR BAGAN)
-    # ==========================================
-    with tab_workflow:
-        st.subheader("🛠️ End-to-End Data Pipeline Architecture")
-        st.caption("Alur pemrosesan data dari raw data Excel, pembersihan query, pemodelan DAX, hingga menjadi dashboard.")
+        # ==========================================
+        # TAB 1: PENJELASAN BAGAN & WORKFLOW ETL / DAX
+        # ==========================================
+        with tab_workflow:
+            st.subheader("🛠️ End-to-End Data Pipeline Architecture")
+            st.caption("Alur pemrosesan data dari raw data Excel, pembersihan query, pemodelan DAX, hingga menjadi dashboard.")
 
-        col_wf_left, col_wf_right = st.columns([1.1, 0.9])
+            col_wf_left, col_wf_right = st.columns([1.1, 0.9])
 
-        with col_wf_left:
-            st.markdown("""
-            ### 1. Data Cleaning & Cleaning Query (ETL)
-            * **Perbaikan Format Nama:** Mengatasi data teks acak/rusak (*corrupted casing*) seperti `Bobby JacksOn` menjadi standar *Capital Each Word* (`Bobby Jackson`).
-            * **Pembersihan Duplikat:** Menghapus baris transaksi ganda untuk memastikan data pasien bersifat unik dan *valid*.
-            * **Tipe Data & Transformasi:** Mengonversi kolom tanggal (`Date of Admission`, `Discharge Date`) ke tipe `Datetime`, serta memastikan `Billing Amount` berformat angka numerik.
+            with col_wf_left:
+                st.markdown("""
+                ### 1. Data Cleaning & Cleaning Query (ETL)
+                * **Perbaikan Format Nama:** Mengatasi data teks acak/rusak (*corrupted casing*) seperti `Bobby JacksOn` menjadi standar *Capital Each Word* (`Bobby Jackson`).
+                * **Pembersihan Duplikat:** Menghapus baris transaksi ganda untuk memastikan data pasien bersifat unik dan *valid*.
+                * **Tipe Data & Transformasi:** Mengonversi kolom tanggal (`Date of Admission`, `Discharge Date`) ke tipe `Datetime`, serta memastikan `Billing Amount` berformat angka numerik.
 
-            ### 2. Data Modeling & DAX Engine (Power BI)
-            * **Tabel Dimensi Kalender (DAX Calendar):**
-              ```dax
-              Dim_Calendar = 
-              ADDCOLUMNS (
-                  CALENDAR(MIN(healthcare_dataset[Date of Admission]), MAX(healthcare_dataset[Date of Admission])),
-                  "Year", YEAR([Date]),
-                  "Quarter", "Q" & FORMAT([Date], "Q"),
-                  "MonthNo", MONTH([Date]),
-                  "MonthName", FORMAT([Date], "MMM"),
-                  "Day", DAY([Date])
-              )
-              ```
-            * **Rumus Agregasi & DAX Top 1 Provider:**
-              ```dax
-              Total Patients = COUNT(healthcare_dataset[Name])
-              Total Billing Amount = SUM(healthcare_dataset[Billing Amount])
+                ### 2. Data Modeling & DAX Engine (Power BI)
+                * **Tabel Dimensi Kalender (DAX Calendar):**
+                  ```dax
+                  Dim_Calendar = 
+                  ADDCOLUMNS (
+                      CALENDAR(MIN(healthcare_dataset[Date of Admission]), MAX(healthcare_dataset[Date of Admission])),
+                      "Year", YEAR([Date]),
+                      "Quarter", "Q" & FORMAT([Date], "Q"),
+                      "MonthNo", MONTH([Date]),
+                      "MonthName", FORMAT([Date], "MMM"),
+                      "Day", DAY([Date])
+                  )
+                  ```
+                * **Rumus Agregasi & DAX Top 1 Provider:**
+                  ```dax
+                  Total Patients = COUNT(healthcare_dataset[Name])
+                  Total Billing Amount = SUM(healthcare_dataset[Billing Amount])
 
-              Top 1 Insurance Provider = 
-              CALCULATE(
-                  SELECTEDVALUE(healthcare_dataset[Insurance Provider]),
-                  TOPN(1, ALL(healthcare_dataset[Insurance Provider]), [Total Billing Amount], DESC)
-              )
-              ```
-            """)
+                  Top 1 Insurance Provider = 
+                  CALCULATE(
+                      SELECTEDVALUE(healthcare_dataset[Insurance Provider]),
+                      TOPN(1, ALL(healthcare_dataset[Insurance Provider]), [Total Billing Amount], DESC)
+                  )
+                  ```
+                """)
 
-        with col_wf_right:
-            # --- INPUT GAMBAR BAGAN WORKFLOW DI TAB 1 ---
-            # Jika menggunakan helper function st_lightbox_image milikmu:
-            st_lightbox_image("skema_kesehatan.png", img_id="pipe_arch", caption="End-to-End Data Pipeline & Analytics Architecture")
-            
-            # (Opsi Alternatif jika tidak pakai lightbox):
-            # st.image("skema_kesehatan.png", caption="End-to-End Data Pipeline & Analytics Architecture", use_column_width=True)
+            with col_wf_right:
+                # --- INPUT GAMBAR BAGAN WORKFLOW DI TAB 1 ---
+                st_lightbox_image("skema_kesehatan.png", img_id="pipe_arch", caption="End-to-End Data Pipeline & Analytics Architecture")
 
-            st.info("""
-            💡 **Pipeline Highlights:** 
-            * **Input:** 54.966 Baris Dataset Kesehatan
-            * **Process:** Cleaning Python/Power Query ➔ DAX Calendar & Star Schema
-            * **Output:** Power BI Executive Dashboard
-            """)
+                st.info("""
+                💡 **Pipeline Highlights:** 
+                * **Input:** 54.966 Baris Dataset Kesehatan
+                * **Process:** Cleaning Python/Power Query ➔ DAX Calendar & Star Schema
+                * **Output:** Power BI Executive Dashboard
+                """)
 
-    # ==========================================
-    # TAB 2: DASHBOARD OVERVIEW & BUSINESS INSIGHTS
-    # ==========================================
-    with tab_dashboard:
-        col_dash_left, col_dash_right = st.columns([1, 1])
+        # ==========================================
+        # TAB 2: DASHBOARD OVERVIEW & BUSINESS INSIGHTS
+        # ==========================================
+        with tab_dashboard:
+            col_dash_left, col_dash_right = st.columns([1, 1])
 
-        with col_dash_left:
-            st.markdown("""
-            ### Business Background
-            Rumah sakit dan penyedia layanan kesehatan membutuhkan pemantauan terpusat terhadap tren penerimaan pasien, penyebaran penyakit, serta distribusi tagihan medis (*billing*) di berbagai mitra asuransi. Laporan ini mencakup analisis **54.97K pasien** dengan total tagihan mencapai **Rp1,404 Miliar** (2019–2024).
+            with col_dash_left:
+                st.markdown("""
+                ### Business Background
+                Rumah sakit dan penyedia layanan kesehatan membutuhkan pemantauan terpusat terhadap tren penerimaan pasien, penyebaran penyakit, serta distribusi tagihan medis (*billing*) di berbagai mitra asuransi. Laporan ini mencakup analisis **54.97K pasien** dengan total tagihan mencapai **Rp1,404 Miliar** (2019–2024).
 
-            ---
+                ---
 
-            ### Key Business Questions
-            1. Berapa total beban biaya (*billing*) kesehatan dan bagaimana distribusinya antar penyedia asuransi?
-            2. Siapa *Insurance Provider* peringkat pertama (Top 1) yang menyerap tagihan terbesar?
-            3. Bagaimana proporsi kondisi medis (*Medical Conditions*) dan distribusi gender pasien?
-            4. Bagaimana tren kunjungan pasien dari tahun 2019 hingga 2024?
-            """)
+                ### Key Business Questions
+                1. Berapa total beban biaya (*billing*) kesehatan dan bagaimana distribusinya antar penyedia asuransi?
+                2. Siapa *Insurance Provider* peringkat pertama (Top 1) yang menyerap tagihan terbesar?
+                3. Bagaimana proporsi kondisi medis (*Medical Conditions*) dan distribusi gender pasien?
+                4. Bagaimana tren kunjungan pasien dari tahun 2019 hingga 2024?
+                """)
 
-        with col_dash_right:
-            # --- GAMBAR DASHBOARD DI TAB 2 ---
-            st_lightbox_image("Dashboard_kesehatan.png", img_id="dash_kes", caption="Medical Analytics & Billing Overview Dashboard")
+            with col_dash_right:
+                # --- GAMBAR DASHBOARD DI TAB 2 ---
+                st_lightbox_image("Dashboard_kesehatan.png", img_id="dash_kes", caption="Medical Analytics & Billing Overview Dashboard")
 
-        st.markdown("---")
+            st.markdown("---")
 
-        col_ins, col_rec = st.columns([1, 1])
+            col_ins, col_rec = st.columns([1, 1])
 
-        with col_ins:
-            st.markdown("""
-            ### Key Insights
-            * **Performa Mitra Asuransi:** **Cigna** menjadi *Insurance Provider* nomor 1 dengan total tagihan tertinggi (**Rp284M** / 11.14K pasien), disusul ketat oleh **Medicare** (Rp283M) dan **Blue Cross** (Rp280M).
-            * **Keseimbangan Gender:** Sebaran pasien sangat seimbang antara **Laki-laki (50.02% / 27.5K)** dan **Perempuan (49.98% / 27.47K)**.
-            * **Penyebaran Kondisi Medis:** 6 kondisi medis utama (*Diabetes, Obesity, Arthritis, Hypertension, Cancer, Asthma*) memiliki sebaran yang rata, masing-masing berkontribusi sekitar **16.5% - 16.7%** dari total pasien.
-            * **Tren Pasien (2019-2024):** Terjadi lonjakan signifikan dari tahun 2019 (7.3K pasien, Rp188M) ke tahun 2020 (11.2K pasien, Rp284M), dan cenderung stabil di angka ~10.9K pasien/tahun hingga akhir 2023.
-            """)
+            with col_ins:
+                st.markdown("""
+                ### Key Insights
+                * **Performa Mitra Asuransi:** **Cigna** menjadi *Insurance Provider* nomor 1 dengan total tagihan tertinggi (**Rp284M** / 11.14K pasien), disusul ketat oleh **Medicare** (Rp283M) dan **Blue Cross** (Rp280M).
+                * **Keseimbangan Gender:** Sebaran pasien sangat seimbang antara **Laki-laki (50.02% / 27.5K)** dan **Perempuan (49.98% / 27.47K)**.
+                * **Penyebaran Kondisi Medis:** 6 kondisi medis utama (*Diabetes, Obesity, Arthritis, Hypertension, Cancer, Asthma*) memiliki sebaran yang rata, masing-masing berkontribusi sekitar **16.5% - 16.7%** dari total pasien.
+                * **Tren Pasien (2019-2024):** Terjadi lonjakan signifikan dari tahun 2019 (7.3K pasien, Rp188M) ke tahun 2020 (11.2K pasien, Rp284M), dan cenderung stabil di angka ~10.9K pasien/tahun hingga akhir 2023.
+                """)
 
-        with col_rec:
-            st.markdown("""
-            ### Business Recommendations
-            1. **Kemitraan Prioritas Asuransi:** Memperkuat kolaborasi dan *SLA* klaim khusus dengan **Cigna** dan **Medicare** sebagai kontributor tagihan terbesar untuk mempercepat pencairan arus kas (*cash flow*).
-            2. **Alokasi Sumber Daya Medis:** Karena 6 kondisi medis terdistribusi secara merata, fasilitas kesehatan harus menjaga keseimbangan alokasi staf spesialis dan stok obat gawat darurat (*Diabetes & Hypertension*).
-            3. **Manajemen Kapasitas Rawat:** Mempersiapkan simulasi kapasitas tempat tidur harian berdasarkan pola historis stabil di kisaran 10.8K-11.2K pasien per tahun.
-            """)
+            with col_rec:
+                st.markdown("""
+                ### Business Recommendations
+                1. **Kemitraan Prioritas Asuransi:** Memperkuat kolaborasi dan *SLA* klaim khusus dengan **Cigna** dan **Medicare** sebagai kontributor tagihan terbesar untuk mempercepat pencairan arus kas (*cash flow*).
+                2. **Alokasi Sumber Daya Medis:** Karena 6 kondisi medis terdistribusi secara merata, fasilitas kesehatan harus menjaga keseimbangan alokasi staf spesialis dan stok obat gawat darurat (*Diabetes & Hypertension*).
+                3. **Manajemen Kapasitas Rawat:** Mempersiapkan simulasi kapasitas tempat tidur harian berdasarkan pola historis stabil di kisaran 10.8K-11.2K pasien per tahun.
+                """)
     
     # ------------------ PROYEK 6: SALES MONITORING ------------------
     with st.expander("6. Commercial Sales Target vs Achievement & Operational Slicer System (Advanced Excel + VBA)"):
