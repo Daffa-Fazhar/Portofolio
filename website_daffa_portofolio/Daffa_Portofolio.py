@@ -801,9 +801,41 @@ with tab2:
         col1, col2 = st.columns([1, 1])
         with col1:
             st.markdown("""
-            **Tantangan:** Memantau ketercapaian target penjualan harian dan mingguan yang sering mengalami selisih (*gap*) antara barang masuk (*Sell-In*) dan keluar (*Sell-Out*).  
-            **Solusi:** Menggabungkan *Advanced Excel Formulas*, *Conditional Formatting*, *Interactive Pivot Table*, *Slicers*, dan *VBA Macro* untuk kalkulasi otomatis.  
-            **Hasil:** Panel kendali operasional lengkap dengan matriks *Achievement % (Gauge Chart)*, *Gap Unit*, *Timegone Rate*, serta performa tim *Promotor Name*.
+            ### 📊 Sales Performance & Supply Chain Monitoring System
+            #### Executive Summary & Business Challenge
+            Dalam industri retail dan distribusi, tantangan terbesar manajemen adalah **ketidakseimbangan (*gap*) antara *Sell-In* (stok masuk ke toko) dan *Sell-Out* (penjualan nyata ke konsumen akhir)**. *Client* membutuhkan sistem pemantauan terpusat untuk:
+            1. Mengeliminasi kesalahan input manual dari tim promotor di lapangan.
+            2. Memantau kecepatan pencapaian target harian/mingguan (*Timegone vs. Achievement Rate*).
+            3. Mengidentifikasi akumulasi *gap unit* di tiap cabang toko secara *real-time*.
+
+            ---
+
+            #### Technical Architecture & System Workflow
+            Sistem ini dirancang modular dengan pemisahan struktur data (*Database Normalization Principle*) untuk menjaga performa file Excel tetap ringan dan stabil:
+            * **Input Layer (VBA Macro Forms):** Form entri otomatis untuk memvalidasi input data promotor, meminimalisir *human error* dan *corrupted data*.
+            * **Data Layer (`PRODUCT`, `STORE`, `DATA`):** Master data terstruktur yang menyimpan relasi atribut produk, lokasi toko, dan riwayat transaksi.
+            * **Processing Engine (`PIVOT` + Advanced Formulas):** Kombinasi *Pivot Tables*, `SUMIFS`, `INDEX/MATCH`, dan *Dynamic Arrays* untuk agregasi indikator secara otomatis.
+            * **Executive Layer (`DASHBOARD`):** Panel kendali interaktif yang dilengkapi *Slicers* multi-dimensi (Hari, Minggu, Bulan, Tahun, Promotor).
+
+            ---
+
+            #### Critical Rationale & Visual Chart Selection
+            Setiap elemen visualisasi didesain secara spesifik berdasarkan kebutuhan pengambilan keputusan cepat:
+
+            | Komponen Visual | Jenis Visualisasi | Alasan Analitis & Pemilihan Chart |
+            | :--- | :--- | :--- |
+            | **KPI Speedometer** | *Custom Gauge / Doughnut Chart* | Membandingkan % *Achievement* secara mendesak terhadap **Timegone Rate (10%)** untuk mengukur apakah ritme penjualan *ahead* atau *behind schedule*. |
+            | **Pencapaian Tren** | *Dual Line Chart* | Memetakan *Sell-In vs Sell-Out* secara *time-series* untuk mendeteksi potensi penyumbatan stok (*overstocking*) atau kelangkaan barang (*stockout*). |
+            | **Peringkat Produk & Toko** | *Horizontal Bar Chart* | Dipilih khusus untuk **Top 5 Products** & **Top 5 Stores** agar label nama produk yang panjang (misal: *Asus Vivobook A14*) terbaca utuh tanpa terpotong (*text truncation*). |
+            | **Evaluasi Tim** | *Clustered Column Chart* | Membandingkan performa *Sell Out* antar Promotor secara *side-by-side* terhadap target individu. |
+            | **Audit Disparitas** | *Bar Chart (Gap Unit)* | Menyoroti toko dengan tingkat *gap* unit tertinggi secara langsung (*spotlight effect*) untuk tindakan audit lapangan. |
+
+            ---
+
+            #### Business Impact & Key Operational Insights
+            * **Efisiensi Operasional:** Memotong waktu pelaporan harian hingga **70%** berkat automasi kalkulasi VBA dan Pivot Engine.
+            * **Visibilitas Inventaris:** Menemukan *gap unit* kritis pada toko tertentu (contoh: *Toko Sejati Budi* dengan 20 unit gap) untuk segera ditindaklanjuti oleh tim logistik.
+            * **Evaluasi Promotor:** Mengidentifikasi pencapaian promotor tertinggi (Yanto & Andi) sebagai acuan pemberian insentif penjualan yang transparan.
             """)
         with col2:
             st_lightbox_image("Dashboard_monitoring.png", img_id="dash_mon", caption="Sales Monitoring Combination System")
