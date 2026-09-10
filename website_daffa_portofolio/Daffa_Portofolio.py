@@ -920,8 +920,9 @@ with tab2:
         * **Dampak Bisnis:** Menghilangkan risiko kesalahan input manual (zero copy-paste), mempercepat proses pencatatan data perbulan hingga 90%, serta menghasilkan laporan keuangan yang siap audit dengan akurasi tinggi.
         """)
         
+html_portofolio_tambahan = """
 <div class="new-portfolio-container">
-
+  
   <style>
     .new-portfolio-container { font-family: sans-serif; max-width: 1100px; margin: 0 auto; padding: 20px 0; }
     .new-category-title { border-bottom: 2px solid #2c3e50; padding-bottom: 10px; margin: 40px 0 20px 0; color: #2c3e50; font-size: 1.5rem; }
@@ -935,11 +936,8 @@ with tab2:
     .new-project-tags span { display: inline-block; background: #f1f3f5; color: #495057; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; margin: 0 5px 5px 0; font-weight: 500; }
   </style>
 
-  <!-- KATEGORI 1: ENTERPRISE & SYSTEMS AUTOMATION -->
   <h2 class="new-category-title">Enterprise & Systems Automation</h2>
   <div class="new-portfolio-grid">
-    
-    <!-- Proyek 1: AutoData -->
     <div class="new-project-card">
       <img src="UI.png" alt="AutoData Platform" class="new-project-img">
       <div class="new-project-content">
@@ -950,8 +948,6 @@ with tab2:
         </div>
       </div>
     </div>
-
-    <!-- Proyek 2: TAX ERP -->
     <div class="new-project-card">
       <img src="test.jpg" alt="TAX ERP Platform" class="new-project-img" style="object-position: top left;">
       <div class="new-project-content">
@@ -962,14 +958,10 @@ with tab2:
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- KATEGORI 2: WEB DEVELOPMENT & DIGITALIZATION -->
   <h2 class="new-category-title">Web Development & Digitalization</h2>
   <div class="new-portfolio-grid">
-    
-    <!-- Proyek 3: Website UMKM KEVIN N MOMS -->
     <div class="new-project-card">
       <img src="tas.jpg" alt="Website KEVIN N MOMS" class="new-project-img">
       <div class="new-project-content">
@@ -980,10 +972,13 @@ with tab2:
         </div>
       </div>
     </div>
-
   </div>
   
 </div>
+"""
+
+# 2. Perintahkan Streamlit untuk merender HTML tersebut
+st.markdown(html_portofolio_tambahan, unsafe_allow_html=True)
     # ------------------ SECTION KHUSUS: HACKATHON ------------------
     st.markdown("---")
     st.subheader("🏆 Hackathon & Competitive Case Studies")
