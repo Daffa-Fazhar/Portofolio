@@ -920,65 +920,6 @@ with tab2:
         * **Dampak Bisnis:** Menghilangkan risiko kesalahan input manual (zero copy-paste), mempercepat proses pencatatan data perbulan hingga 90%, serta menghasilkan laporan keuangan yang siap audit dengan akurasi tinggi.
         """)
         
-html_portofolio_tambahan = """
-<div class="new-portfolio-container">
-  
-  <style>
-    .new-portfolio-container { font-family: sans-serif; max-width: 1100px; margin: 0 auto; padding: 20px 0; }
-    .new-category-title { border-bottom: 2px solid #2c3e50; padding-bottom: 10px; margin: 40px 0 20px 0; color: #2c3e50; font-size: 1.5rem; }
-    .new-portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-    .new-project-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-    .new-project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-    .new-project-img { width: 100%; height: 220px; object-fit: cover; object-position: top; border-bottom: 1px solid #eee; }
-    .new-project-content { padding: 20px; }
-    .new-project-title { font-size: 1.25rem; margin: 0 0 10px 0; color: #1a1a1a; font-weight: bold; }
-    .new-project-desc { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 15px; }
-    .new-project-tags span { display: inline-block; background: #f1f3f5; color: #495057; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; margin: 0 5px 5px 0; font-weight: 500; }
-  </style>
-
-  <h2 class="new-category-title">Enterprise & Systems Automation</h2>
-  <div class="new-portfolio-grid">
-    <div class="new-project-card">
-      <img src="UI.png" alt="AutoData Platform" class="new-project-img">
-      <div class="new-project-content">
-        <h3 class="new-project-title">AutoData - Smart Automation Platform</h3>
-        <p class="new-project-desc">Platform otomasi cerdas untuk mengekstraksi, memetakan, dan memvalidasi data *invoice* yang kompleks. Dilengkapi fitur *Rule-Based Mapping* untuk efisiensi pemrosesan data massal.</p>
-        <div class="new-project-tags">
-          <span>Data Automation</span> <span>UI/UX Design</span> <span>Data Extraction</span>
-        </div>
-      </div>
-    </div>
-    <div class="new-project-card">
-      <img src="test.jpg" alt="TAX ERP Platform" class="new-project-img" style="object-position: top left;">
-      <div class="new-project-content">
-        <h3 class="new-project-title">TAX ERP Platform</h3>
-        <p class="new-project-desc">Sistem manajemen operasional pajak berbasis *Enterprise Resource Planning*. Mengelola alur penugasan klien, rekapitulasi PPh (21, 25, Final), dan pemantauan status permintaan secara terpusat.</p>
-        <div class="new-project-tags">
-          <span>ERP System</span> <span>Database Logic</span> <span>Tax Management</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="new-category-title">Web Development & Digitalization</h2>
-  <div class="new-portfolio-grid">
-    <div class="new-project-card">
-      <img src="tas.jpg" alt="Website KEVIN N MOMS" class="new-project-img">
-      <div class="new-project-content">
-        <h3 class="new-project-title">Website UMKM KEVIN N MOMS</h3>
-        <p class="new-project-desc">Pengembangan *company profile* dan katalog produk interaktif untuk pemberdayaan pengrajin lokal (Ibu Betty). Membantu UMKM mendigitalisasi bisnis dan memperluas jangkauan pasar.</p>
-        <div class="new-project-tags">
-          <span>Web Development</span> <span>Digitalization</span> <span>Social Impact</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-</div>
-"""
-
-# 2. Perintahkan Streamlit untuk merender HTML tersebut
-st.markdown(html_portofolio_tambahan, unsafe_allow_html=True)
     # ------------------ SECTION KHUSUS: HACKATHON ------------------
     st.markdown("---")
     st.subheader("🏆 Hackathon & Competitive Case Studies")
